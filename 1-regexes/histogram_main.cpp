@@ -32,27 +32,33 @@ int main()
         }else if(type==Number){
             // We have a number. The value will be
             // in yylval.numberValue
-
+            sum = sum + yylval.numberValue;
             // TODO: add to sum
-            
+
         }else if(type==Word){
             // We have a string. The value is in a string
             // _pointed to_ by yylval.wordValue. Note that
             // the string is allocated by the lexer, but
             // deallocated by us.
+            std::string TempString = *yylval.wordValue;
+            TempString.erase(std::remove(TempString.begin(),TempString.end(),'\'),TempString.end());
 
             // TODO: add yylval.wordValue to histogram
-
+            histogram[TempString] += 1;
             // TODO: Free the pointer yylval.wordValue to stop leaks
-        }else{
+            delete yylval.wordValue;
+
+        }
+        else
+        {
             assert(0); // There are only three token types.
             return 1;
         }
     }
 
 
-    // TODO: print out `sum` to std::cout with three decimal digits
-    
+    // TODO: print out `sum` to std::cout with three decimal digits  // DONE
+    std::cout << std::fixed << std::setprecision(3) << sum << std::endl;
 
     // Build a vector of (word,count) entries based on the hash-table
     std::vector<std::pair<std::string,unsigned> > sorted(histogram.begin(), histogram.end());
@@ -73,9 +79,12 @@ int main()
     while(it!=sorted.end()){
         std::string name=it->first;
         unsigned count=it->second;
+
+        std::cout << "\" << name << "\" << " " << count << std::endl;
+
         // TODO: Print out `name` and `count` to std::cout
-        
-        
+
+
         ++it;
     }
 
