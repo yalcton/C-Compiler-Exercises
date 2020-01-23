@@ -23,7 +23,8 @@ int main()
     histogram_type histogram; // Create the hash-table instance
     double sum=0; // Our running sum
 
-    while(1){
+    while(1)
+    {
         TokenType type=(TokenType)yylex();
 
         if(type==None){
@@ -41,14 +42,14 @@ int main()
             // the string is allocated by the lexer, but
             // deallocated by us.
             std::string TempString = *yylval.wordValue;
-            TempString.erase(std::remove(TempString.begin(),TempString.end(),'\'),TempString.end());
+            TempString.erase(std::remove(TempString.begin(),TempString.end(),'\\'),TempString.end());
 
             // TODO: add yylval.wordValue to histogram
             histogram[TempString] += 1;
             // TODO: Free the pointer yylval.wordValue to stop leaks
             delete yylval.wordValue;
+          }
 
-        }
         else
         {
             assert(0); // There are only three token types.
@@ -80,7 +81,7 @@ int main()
         std::string name=it->first;
         unsigned count=it->second;
 
-        std::cout << "\" << name << "\" << " " << count << std::endl;
+        std::cout << "[" << name << "]" << " " << count << std::endl;
 
         // TODO: Print out `name` and `count` to std::cout
 

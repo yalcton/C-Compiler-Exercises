@@ -18,39 +18,69 @@
 // This is to work around an irritating bug in Flex
 // https://stackoverflow.com/questions/46213840/get-rid-of-warning-implicit-declaration-of-function-fileno-in-flex
 extern "C" int fileno(FILE *stream);
-
+  double createDecimal(std::string yytext);
 /* End the embedded code section. */
 %}
 
 
 %%
--?[0-9]+[.][0-9]+
+      // still need to write another block for fractions. [-?[0-9]+\.[0-9]+]..        [-]?[0-9]+[,.]?[0-9]*([/][0-9]+[,.]?[0-9]*)*
 
-{
-                      fprintf(stderr, "Number : %s\n", yytext); /* TODO: get value out of yytext and into yylval.number */
+-?[0-9]+\.?[0-9]* {
+                      fprintf(stderr, "Decimal Number : %s\n", yytext); /* TODO: get value out of yytext and into yylval.number */
                       yylval.numberValue = atof(yytext);
                       return Number;
+                    }
 
-}
-[^\[][a-zA-Z]+[^\]]
- {
-                  fprintf(stderr, "Word : %s\n", yytext);
-                  std::string TextString(yytext);
-                  yylval.wordValue = new std::string();
-                  *yylval.wordValue=TextString;
-
-                  /* TODO: get value out of yytext and into yylval.wordValue */;
-                  return Word;
-              }
-
-\n              { fprintf(stderr, "Newline\n"); }
+[-]?[0-9]+[/]-?[0-9]+ {
+                                          fprintf(stderr, "Fractional Number : %s\n", yytext); /* TODO: get value out of yytext and into yylval.number */
+                                          yylval.numberValue = createDecimal(yytext);
+                                          return Number;
+                                        }
 
 
+[\[]?[a-zA-Z]+[\]]? {
+                   fprintf(stderr, "Word : %s\n", yytext);
+                   std::string TextString(yytext);
+                   yylval.wordValue = new std::string();
+                   *yylval.wordValue=TextString;
+
+                   /* TODO: get value out of yytext and into yylval.wordValue */;
+                   return Word;
+                 }
+
+[\n]              { fprintf(stderr, "Newline\n"); }
+
+. { }
 %%
 
 /* Error handler. This will get called if none of the rules match. */
-void yyerror (char const *s)
-{
-  fprintf (stderr, "Flex Error: %s\n", s); /* s is the text that wasn't matched */
-  exit(1);
-}
+
+  double createDecimal(std::string yytext)  //find strings before and after "/"
+  {
+    int IndexLocationOfDivision = yytext.find('/');
+    std::string TempNumber1,TempNumber2;
+    double ReturnValue;
+
+    for (int i=0; i<IndexLocationOfDivision; i++)
+    {
+      TempNumber1 += yytext[i];
+    }
+
+    for (int i=IndexLocationOfDivision+1; i<yytext.size(); i++)
+    {
+      TempNumber2 += yytext[i];
+    }
+
+    double num1 = atof(TempNumber1.c_str());
+    double num2 = atof(TempNumber2.c_str());
+
+    ReturnValue = (num1/num2);
+    return ReturnValue;
+  }
+
+  void yyerror (char const *s)
+  {
+    fprintf (stderr, "Flex Error: %s\n", s); /* s is the text that wasn't matched */
+    exit(1);
+  }
