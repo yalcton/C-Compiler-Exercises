@@ -40,28 +40,18 @@ extern "C" int fileno(FILE *stream);
 
 [a-zA-Z]+ {
                    fprintf(stderr, "Non Bracketed Word : %s\n", yytext);
-                   std::string TextString(yytext);
                    yylval.wordValue = new std::string();
-                   *yylval.wordValue=TextString;
-
-                   /* TODO: get value out of yytext and into yylval.wordValue */;
+                   *yylval.wordValue=yytext;
                    return Word;
                  }
 
 
-\[[^\]\n]*\] {
-                   fprintf(stderr, "Bracketed Word : %s\n", yytext);
+\[[^\]\n]*\] { fprintf(stderr, "Bracketed Word : %s\n", yytext);
 
                    yytext++;
                    yytext[strlen(yytext)-1] = 0;
-
-                   std::string TextString(yytext);
-
-
                    yylval.wordValue = new std::string();
-                   *yylval.wordValue=TextString;
-
-                   /* TODO: get value out of yytext and into yylval.wordValue */;
+                   *yylval.wordValue=yytext;
                    return Word;
                  }
 
