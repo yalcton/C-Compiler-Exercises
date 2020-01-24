@@ -57,7 +57,7 @@ extern "C" int fileno(FILE *stream);
 
 [\n]              { fprintf(stderr, "Newline\n"); }
 
-. { }
+. {              }
 %%
 
 /* Error handler. This will get called if none of the rules match. */
