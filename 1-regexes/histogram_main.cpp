@@ -42,7 +42,6 @@ int main()
             // the string is allocated by the lexer, but
             // deallocated by us.
             std::string TempString = *yylval.wordValue;
-        //    TempString.erase(std::remove(TempString.begin(),TempString.end(),'\\'),TempString.end());
 
             // TODO: add yylval.wordValue to histogram
             histogram[TempString] += 1;
