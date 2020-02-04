@@ -46,7 +46,7 @@ public:
 
     virtual const char *getFunction() const
     { return "log"; }
-    
+
     // TODO-E : Override evaluate, and implement it
 };
 

@@ -1,8 +1,7 @@
-%code requires{
-  #include "ast.hpp"
-
+%{
   #include <cassert>
-
+  #include "ast.hpp"
+  //...
   extern const Expression *g_root; // A way of getting the AST out
 
   //! This is to fix problems when generating C++
@@ -10,11 +9,12 @@
   // that Bison generated code can call them.
   int yylex(void);
   void yyerror(const char *);
-}
+%}  //FOR SOME REASON %CODE does not work.
 
 // Represents the value associated with any kind of
 // AST node.
-%union{
+%union
+{
   const Expression *expr;
   double number;
   std::string *string;
@@ -44,19 +44,38 @@ ROOT : EXPR { g_root = $1; }
 
 /* TODO-3 : Add support for (x + 6) and (10 - y). You'll need to add production rules, and create an AddOperator or
             SubOperator. */
+
 EXPR : TERM                 { $$ = $1; }
+        |EXPR T_PLUS TERM 		{ $$ = new AddOperator($1, $3);}
+	      |EXPR T_MINUS TERM		{ $$ = new SubOperator($1, $3);}    // i.e. token 1 - token 3.
 
 /* TODO-4 : Add support (x * 6) and (z / 11). */
 TERM : FACTOR               { $$ = $1; }
+        |TERM T_TIMES FACTOR 		{ $$ = new MulOperator($1, $3);}
+        |TERM T_DIVIDE FACTOR		{ $$ = new DivOperator($1, $3);}    // i.e. token 1 - token 3.
 
 /* TODO-2 : Add a rule for variable, base on the pattern of number. */
-FACTOR : T_NUMBER           { /* TODO-1 : uncomment this:   $$ = new Number( $1 ); */ }
+FACTOR : T_NUMBER           { $$ = new Number( $1 ); }
        | T_LBRACKET EXPR T_RBRACKET { $$ = $2; }
+       | T_VARIABLE 	   		{ $$ = new Variable(*$1); }
+       | FUNCTION_NAME T_LBRACKET EXPR T_RBRACKET
+       {
+            if (*$1 == "log")
+						{$$ = new LogFunction($3);}
+
+						else if (*$1 == "exp")
+						{$$ = new ExpFunction($3);}
+
+						else if (*$1 == "sqrt")
+						{$$ = new SqrtFunction($3);}
+        }
 
 /* TODO-5 : Add support log(x), by modifying the rule for FACTOR. */
 
 /* TODO-6 : Extend support to other functions. Requires modifications here, and to FACTOR. */
 FUNCTION_NAME : T_LOG { $$ = new std::string("log"); }
+          | T_EXP { $$ = new std::string("exp"); }
+          | T_SQRT { $$ = new std::string("sqrt"); }
 
 %%
 

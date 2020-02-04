@@ -46,10 +46,10 @@ public:
     AddOperator(ExpressionPtr _left, ExpressionPtr _right)
         : Operator(_left, _right)
     {}
-    
+
     virtual double evaluate(
         const std::map<std::string,double> &bindings
-    ) const override 
+    ) const override
     {
         // TODO-C : Run bin/eval_expr with something like 5+a, where a=10, to make sure you understand how this works
         double vl=left->evaluate(bindings);
@@ -68,13 +68,17 @@ public:
     SubOperator(ExpressionPtr _left, ExpressionPtr _right)
         : Operator(_left, _right)
     {}
-    
+
     virtual double evaluate(
         const std::map<std::string,double> &bindings
-    ) const override 
+    ) const override
+
     {
+        double vl=left->evaluate(bindings);
+        double vr=right->evaluate(bindings);
+        return vl-vr;
         // TODO-D : Implement this, based on AddOperator::evaluate
-        throw std::runtime_error("MulOperator::evaluate is not implemented.");
+    //    throw std::runtime_error("MulOperator::evaluate is not implemented.");
     }
 };
 
@@ -94,7 +98,10 @@ public:
         const std::map<std::string,double> &bindings
     ) const override
     {
-        throw std::runtime_error("MulOperator::evaluate is not implemented.");
+      double vl=left->evaluate(bindings);
+      double vr=right->evaluate(bindings);
+      return vl/vr;
+      //  throw std::runtime_error("MulOperator::evaluate is not implemented.");
     }
 };
 
@@ -113,7 +120,10 @@ public:
         const std::map<std::string,double> &bindings
     ) const override
     {
-        throw std::runtime_error("DivOperator::evaluate is not implemented.");
+      double vl=left->evaluate(bindings);
+      double vr=right->evaluate(bindings);
+      return vl/vr;
+        //throw std::runtime_error("DivOperator::evaluate is not implemented.");
     }
 };
 
@@ -132,6 +142,9 @@ public:
         const std::map<std::string,double> &bindings
     ) const override
     {
+      double vl=left->evaluate(bindings);
+      double vr=right->evaluate(bindings);
+      return vl^vr;
         throw std::runtime_error("ExpOperator::evaluate is not implemented.");
     }
 };
