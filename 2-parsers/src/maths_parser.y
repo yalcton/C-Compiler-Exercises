@@ -1,7 +1,8 @@
-%{
-  #include <cassert>
+%code requires{
   #include "ast.hpp"
-  //...
+
+  #include <cassert>
+
   extern const Expression *g_root; // A way of getting the AST out
 
   //! This is to fix problems when generating C++
@@ -9,7 +10,7 @@
   // that Bison generated code can call them.
   int yylex(void);
   void yyerror(const char *);
-%}  //FOR SOME REASON %CODE does not work.
+}
 
 // Represents the value associated with any kind of
 // AST node.
