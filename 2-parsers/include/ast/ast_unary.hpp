@@ -51,8 +51,8 @@ public:
     {
         // TODO-F: Implement this similar to how AddOperator was implemented.
   //      throw std::runtime_error("NegOperator::evaluate is not implemented.");
-      double v = getExpr()->evaluate(bindings);
-      return -v;
+      double temp = getExpr()->evaluate(bindings);
+      return -temp;
     }
 };
 

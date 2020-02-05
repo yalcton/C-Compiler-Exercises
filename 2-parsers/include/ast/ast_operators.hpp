@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <cmath>
+
 class Operator
     : public Expression
 {
@@ -106,7 +107,7 @@ public:
     {
       double vl=getLeft()->evaluate(bindings);
       double vr=getRight()->evaluate(bindings);
-      return vl/vr;
+      return vl*vr;
       //  throw std::runtime_error("MulOperator::evaluate is not implemented.");
     }
 };
