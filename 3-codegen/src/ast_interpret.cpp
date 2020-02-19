@@ -71,6 +71,8 @@ int32_t Interpret(
             return C;
           }
   }else if(program->type=="While"){
+          int32_t A = Interpret(context,program->branches.at(0));
+
           while (Interpret(context, program->branches.at(0)) != 0){
             A = Interpret(context,program->branches.at(1));
           }
