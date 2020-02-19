@@ -35,6 +35,15 @@ int32_t Interpret(
         }
         return A;
 
+  }else if(program->type=="Assign"){
+    auto it = context.bindings.find(program->value);
+      if(it != context.bindings.end()){
+        context.bindings[program->type] = std::atol(program->value.c_str());
+      }
+      int32_t val=Interpret(context, program->branches.at(0));
+      context.bindings[program->value] = val;
+      return val;
+
   }else if(program->type=="Input"){
       int32_t val;
       std::cin >> val;
@@ -71,14 +80,7 @@ int32_t Interpret(
           }
           return 0;
 
-  }else if(program->type=="Assign"){
-    auto it = context.bindings.find(program->value);
-      if(it != context.bindings.end()){
-        context.bindings[program->type] = std::atol(program->value.c_str());
-      }
-      int32_t val=Interpret(context, program->branches.at(0));
-      context.bindings[program->value] = val;
-      return val;
+
 
 
   }else{
