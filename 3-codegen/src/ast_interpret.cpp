@@ -36,13 +36,10 @@ int32_t Interpret(
         return A;
 
   }else if(program->type=="Assign"){
-    auto it = context.bindings.find(program->value);
-      if(it != context.bindings.end()){
-        context.bindings[program->type] = std::atol(program->value.c_str());
-      }
-      int32_t val=Interpret(context, program->branches.at(0));
-      context.bindings[program->value] = val;
-      return val;
+    std::string N = program -> value;
+    int32_t Temp = Interpret(context, program->branches.at(0));
+    context.bindings[N] = Temp;
+    return Temp;
 
   }else if(program->type=="Input"){
       int32_t val;
@@ -74,8 +71,7 @@ int32_t Interpret(
             return C;
           }
   }else if(program->type=="While"){
-          int32_t A = Interpret(context,program->branches.at(0));
-          while (A != 0){
+          while (Interpret(context, program->branches.at(0)) != 0){
             A = Interpret(context,program->branches.at(1));
           }
           return 0;
