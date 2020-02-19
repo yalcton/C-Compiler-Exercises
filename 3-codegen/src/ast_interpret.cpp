@@ -55,8 +55,30 @@ int32_t Interpret(
       int32_t A = Interpret(context,program->branches.at(0));
       int32_t B = Interpret(context,program->branches.at(1));
       return A-B;
+  }else if(program->type=="If"){
+          int32_t A = Interpret(context,program->branches.at(0));
+          if (A != 0){
+            int32_t B = Interpret(context,program->branches.at(1));
+            return B;
+          }else{
+            int32_t C = Interpret(context,program->branches.at(2));
+            return C;
+          }
+  }else if(program->type=="While"){
+          int32_t A = Interpret(context,program->branches.at(0));
+          while (A != 0){
+            A = Interpret(context,program->branches.at(1));
+          }
+          return 0;
+
   }else if(program->type=="Assign"){
-      std::string N;
+    auto it = context.bindings.find(program->value);
+      if(it != context.bindings.end()){
+        context.bindings[program->type] = std::atol(program->value.c_str());
+      }
+      int32_t val=Interpret(context, program->branches.at(0));
+      context.bindings[program->value] = val;
+      return val;
 
 
   }else{
