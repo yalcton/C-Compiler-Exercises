@@ -1,0 +1,6 @@
+If [
+  Param : 0
+  Param : 1
+  Param : 2
+]
+libc++abi.dylib: terminating with uncaught exception of type std::runtime_error: Unknown construct 'If'
