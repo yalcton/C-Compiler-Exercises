@@ -32,7 +32,9 @@ void CompileRec(
         for(unsigned i=0; i<program->branches.size(); i++){
             CompileRec(destReg, program->branches[i]);
         }
-        // TODO : handle the others, doing in order on spec
+
+
+        // TODO : handle the others:
 
     }
     else if(program->type=="Input")
@@ -101,18 +103,18 @@ void CompileRec(
       CompileRec(destReg,program->branches.at(2));
       std::cout << ":" << jumped << std::endl;
     }
-    // else if(program->type=="While")
-    // {
-    //   std::string labeltop = makeName("top");
-    //   std::string labelbottom = makeName("bottom");
-    //   std::string zero = makeName("zero");
-    //   std::cout << ":" << labeltop << std::endl;
-    //   std::cout << "const " << zero << " 0"<< std::endl;
-    //   std::cout << "beq " << (program->branches.at(0))->type << " " << zero << " " << labelbottom <<std::endl;
-    //   CompileRec((program->branches.at(0))->type,program->branches.at(1));
-    //   std::cout<<"beq " << zero << " " << zero << " " << labeltop <<std::endl;
-    //   std::cout<<":"<<labelbottom<<std::endl;
-    //   CompileRec(destReg,program->branches.at(0));
+    else if(program->type=="While")
+    {
+      std::string labeltop = makeName("top");
+      std::string labelbottom = makeName("bottom");
+      std::string zero = makeName("zero");
+      std::cout << ":" << labeltop << std::endl;
+      std::cout << "const " << zero << " 0"<< std::endl;
+      std::cout << "beq " << (program->branches.at(0))->type << " " << zero << " " << labelbottom <<std::endl;
+      CompileRec((program->branches.at(0))->type,program->branches.at(1));
+      std::cout<<"beq " << zero << " " << zero << " " << labeltop <<std::endl;
+      std::cout<<":"<<labelbottom<<std::endl;
+      CompileRec(destReg,program->branches.at(0));
     else
     {
         throw std::runtime_error("Unknown construct '"+program->type+"'");
