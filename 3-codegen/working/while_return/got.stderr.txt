@@ -1,8 +1,0 @@
-Seq [
-  While [
-    0
-    1
-  ]
-  17
-]
-libc++abi.dylib: terminating with uncaught exception of type std::runtime_error: Unknown construct 'While'

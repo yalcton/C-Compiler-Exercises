@@ -117,23 +117,22 @@ void CompileRec(
     {
       std::string zero = makeName("zero");
       std::cout << "const " << zero << " 0" << std::endl;
-
       std::string start = makeName("start");
       std::string end = makeName("end");
-      std::string c = makeName("condition");
+      std::string c = makeName("cunt");
       // Get register value for the condition
       // Set a label at the beginning of the
       //  loop
       std::cout << ":" << start << std::endl;
       // Compile the condition into destination register c
-      CompileRec(c, program->branches.at(0));
+      CompileRec(destReg, program->branches.at(0));
 
       // At the beginning of the loop, check whether the
       // value in the condition register is equal to zero
       // if it is, go to the end
-      std::cout << "beq " << c << " " << zero << " " << end << std::endl;
+      std::cout << "beq " << destReg << " " << zero << " " << end << std::endl;
       // else do the rest of the code
-      CompileRec(destReg, program->branches.at(1));
+      CompileRec(c, program->branches.at(1));
       // jump to the top again
       std::cout << "beq " << zero << " " << zero << " " << start << std::endl;
       // the end label
