@@ -37,85 +37,108 @@ void CompileRec(
         // TODO : handle the others:
 
     }
-    else if(program->type=="Input")
-    {   //Reads an integer from the input stream of numbers and returns it. Note that it is not a variable because it is not lower-case.
-     std::cout<<"input "<<destReg<<std::endl;
+    else if(program->type=="Assign")
+    { //Evaluate expression V, and assign it to variable N. The return value is the value of V.
+      std::string zero = makeName("zero");
+      std::cout << "const " << zero << " 0" << std::endl;
 
+      // Assign the value of the assign branch to destReg
+      CompileRec(destReg, program->branches.at(0));
+      // Put the value in destReg into the id name
+      std::cout << "add " << program->value << " " << destReg << " " << zero << std::endl;
+
+    }
+    else if(program->type=="Add")
+    { //Evaluate A then B; return A + B.
+      std::string left = makeName("left");
+      std::string right = makeName("right");
+      // Compile the left
+      CompileRec(left, program->branches.at(0));
+      // Compile the right
+      CompileRec(right, program->branches.at(1));
+      std::cout << "add " << destReg << " " << left << " " << right << std::endl;
     }
     else if(program->type=="Output")
     {  //Evaluate X, then send the result to output. The return value is the value of X.
       std::cout<<"output " <<(program->branches.at(0))->type<<std::endl;
 
     }
+    else if(program->type=="Input")
+    {   //Reads an integer from the input stream of numbers and returns it. Note that it is not a variable because it is not lower-case.
+     std::cout<<"input "<<destReg<<std::endl;
+
+    }
+
     else if(program->type=="LessThan")
     {  //Evaluate A then B; return non-zero if A < B.
-      if( regex_match( (program->branches.at(0))->type, reNum))
-      {
-        std::cout<<"const "<<(program->branches.at(0))->type<<" "<<(program->branches.at(0))->type<<std::endl;
-      }
-      else if( regex_match( (program->branches.at(1))->type, reNum ))
-      {
-        std::cout<<"const "<<(program->branches.at(1))->type<<" "<<(program->branches.at(1))->type<<std::endl;
-      }
-      std::cout<<"less than "<<destReg<<" "<<(program->branches.at(0))->type<<" "<<(program->branches.at(1))->type<<std::endl;
+      std::string left = makeName("left");
+      std::string right = makeName("right");
+      // Compile the left
+      CompileRec(left, program->branches.at(0));
+      // Compile the right
+      CompileRec(right, program->branches.at(1));
 
+      std::cout << "lt " << destReg << " " << left << " " << right << std::endl;
     }
-    else if(program->type=="Add")
-    { //Evaluate A then B; return A + B.
-      if(regex_match((program->branches.at(0))->type,reNum))
-      {
-        std::cout<<"const "<<(program->branches.at(0))->type<<" "<<(program->branches.at(0))->type<<std::endl;
-      }
-      else if( regex_match( (program->branches.at(1))->type, reNum ))
-      {
-        std::cout<<"const "<<(program->branches.at(1))->type<<" "<<(program->branches.at(1))->type<<std::endl;
-      }
-        std::cout<<"add "<<destReg<<" "<<(program->branches.at(0))->type<<" "<<(program->branches.at(1))->type<<std::endl;
-    }
+
     else if(program->type=="Sub")
     { //Evaluate A then B; return A - B.
-    if( regex_match( (program->branches.at(0))->type, reNum))
-    {
-      std::cout<<"const "<<(program->branches.at(0))->type<<" "<<(program->branches.at(0))->type<<std::endl;
-    }
-    else if( regex_match( (program->branches.at(1))->type, reNum ))
-    {
-      std::cout<<"const "<<(program->branches.at(1))->type<<" "<<(program->branches.at(1))->type<<std::endl;
-    }
-    std::cout<<"sub "<<destReg<<" "<<(program->branches.at(0))->type<<" "<<(program->branches.at(1))->type<<std::endl;
-    }
-    else if(program->type=="Assign")
-    { //Evaluate expression V, and assign it to variable N. The return value is the value of V.
-    CompileRec(program->value,program->branches.at(0)); //CompileRec will call itself to assign the new values.
+      std::string left = makeName("left");
+      std::string right = makeName("right");
+      // Compile the left
+      CompileRec(left, program->branches.at(0));
+      // Compile the right
+      CompileRec(right, program->branches.at(1));
 
+      std::cout << "sub " << destReg << " " << left << " " << right << std::endl;
     }
+
     else if(program->type=="If")
     {
-      std::string jumped = makeName("jump");
-      std::string ifthenelse = makeName("else");
       std::string zero = makeName("zero");
-      std::cout << "const " << zero << " 0"<< std::endl;
-      CompileRec((program->branches.at(0))->type,program->branches.at(0));
-      std::cout << "branch if equal " << (program->branches.at(0))->type << " " << zero << " " << ifthenelse <<std::endl;
-      CompileRec(destReg,program->branches.at(1));
-      std::cout<<"branch if equal " << zero << " " << zero << " " << jumped <<std::endl;
-      std::cout << ":" << ifthenelse << std::endl;
-      CompileRec(destReg,program->branches.at(2));
-      std::cout << ":" << jumped << std::endl;
+      std::cout << "const " << zero << " 0" << std::endl;
+
+      std::string c = makeName("condition");
+      std::string stat2 = makeName("stat2");
+      std::string end = makeName("end");
+      // Compile the condition into destination register
+      CompileRec(c, program->branches.at(0));
+      // If the condition is equal to 0, skip to the else statement
+      std::cout << "beq " << c << " " << zero << " " << stat2 << std::endl;
+      CompileRec(destReg, program->branches.at(1));
+      // Goto the end after the if statement
+      std::cout << "beq " << zero << " " << zero << " " << end << std::endl;
+      std::cout << ":" << stat2 << std::endl;
+      CompileRec(destReg, program->branches.at(2));
+
+      std::cout << ":" << end << std::endl;
     }
     else if(program->type=="While")
     {
-      std::string labeltop = makeName("top");
-      std::string labelbottom = makeName("bottom");
       std::string zero = makeName("zero");
-      std::cout << ":" << labeltop << std::endl;
-      std::cout << "const " << zero << " 0"<< std::endl;
-      std::cout << "beq " << (program->branches.at(0))->type << " " << zero << " " << labelbottom <<std::endl;
-      CompileRec((program->branches.at(0))->type,program->branches.at(1));
-      std::cout<<"beq " << zero << " " << zero << " " << labeltop <<std::endl;
-      std::cout<<":"<<labelbottom<<std::endl;
-      CompileRec(destReg,program->branches.at(0));
-    else
+      std::cout << "const " << zero << " 0" << std::endl;
+
+      std::string start = makeName("start");
+      std::string end = makeName("end");
+      std::string c = makeName("condition");
+      // Get register value for the condition
+      // Set a label at the beginning of the
+      //  loop
+      std::cout << ":" << start << std::endl;
+      // Compile the condition into destination register c
+      CompileRec(c, program->branches.at(0));
+
+      // At the beginning of the loop, check whether the
+      // value in the condition register is equal to zero
+      // if it is, go to the end
+      std::cout << "beq " << c << " " << zero << " " << end << std::endl;
+      // else do the rest of the code
+      CompileRec(destReg, program->branches.at(1));
+      // jump to the top again
+      std::cout << "beq " << zero << " " << zero << " " << start << std::endl;
+      // the end label
+      std::cout << ":" << end << std::endl;
+    }else
     {
         throw std::runtime_error("Unknown construct '"+program->type+"'");
     }
