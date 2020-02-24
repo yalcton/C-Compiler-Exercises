@@ -1,0 +1,50 @@
+const _zero_1 0
+const _res_0 0
+add x _res_0 _zero_1
+const _zero_2 0
+const _res_0 0
+add z _res_0 _zero_2
+const _zero_3 0
+:_start_4
+const _zero_9 0
+add _left_7 z _zero_9
+const _right_8 4
+lt _res_0 _left_7 _right_8
+beq _res_0 _zero_3 _end_5
+const _zero_10 0
+const _case_6 0
+add i _case_6 _zero_10
+const _zero_11 0
+:_start_12
+const _zero_17 0
+add _left_15 i _zero_17
+const _right_16 5
+lt _case_6 _left_15 _right_16
+beq _case_6 _zero_11 _end_13
+const _zero_18 0
+const _zero_21 0
+add _left_19 x _zero_21
+const _zero_22 0
+add _right_20 z _zero_22
+add _case_14 _left_19 _right_20
+add x _case_14 _zero_18
+const _zero_23 0
+const _zero_26 0
+add _left_24 i _zero_26
+const _right_25 1
+add _case_14 _left_24 _right_25
+add i _case_14 _zero_23
+beq _zero_11 _zero_11 _start_12
+:_end_13
+const _zero_27 0
+add _case_6 x _zero_27
+output _case_6
+const _zero_28 0
+const _zero_31 0
+add _left_29 z _zero_31
+const _right_30 1
+add _case_6 _left_29 _right_30
+add z _case_6 _zero_28
+beq _zero_3 _zero_3 _start_4
+:_end_5
+halt _res_0

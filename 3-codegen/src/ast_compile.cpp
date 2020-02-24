@@ -60,7 +60,8 @@ void CompileRec(
     }
     else if(program->type=="Output")
     {  //Evaluate X, then send the result to output. The return value is the value of X.
-      std::cout<<"output " <<(program->branches.at(0))->type<<std::endl;
+      CompileRec(destReg,program->branches.at(0));
+      std::cout<<"output " << destReg<<std::endl;
 
     }
     else if(program->type=="Input")
