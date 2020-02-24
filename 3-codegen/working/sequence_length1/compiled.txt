@@ -1,2 +1,0 @@
-output 11
-halt _res_0

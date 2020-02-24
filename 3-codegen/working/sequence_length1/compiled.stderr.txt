@@ -1,5 +1,0 @@
-Src: output 11
-Src: halt _res_0
-Exec 0:, {}
-getReg(11)
-Exception: getReg(11) : No such register.
