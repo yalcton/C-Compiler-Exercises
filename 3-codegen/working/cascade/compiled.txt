@@ -20,8 +20,8 @@ const _zero_19 0
 add _res_0 x _zero_19
 beq _res_0 _zero_15 _end_17
 const _zero_20 0
-const _cunt_18 1
-add x _cunt_18 _zero_20
+const _case_18 1
+add x _case_18 _zero_20
 beq _zero_15 _zero_15 _start_16
 :_end_17
 const _zero_21 0

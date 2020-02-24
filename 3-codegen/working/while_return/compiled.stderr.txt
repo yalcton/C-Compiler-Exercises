@@ -2,7 +2,7 @@ Src: const _zero_1 0
 Src: :_start_2
 Src: const _res_0 0
 Src: beq _res_0 _zero_1 _end_3
-Src: const _cunt_4 1
+Src: const _case_4 1
 Src: beq _zero_1 _zero_1 _start_2
 Src: :_end_3
 Src: const _res_0 17

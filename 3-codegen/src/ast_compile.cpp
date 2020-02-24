@@ -119,7 +119,7 @@ void CompileRec(
       std::cout << "const " << zero << " 0" << std::endl;
       std::string start = makeName("start");
       std::string end = makeName("end");
-      std::string c = makeName("cunt");
+      std::string c = makeName("case");
       // Get register value for the condition
       // Set a label at the beginning of the
       //  loop

@@ -14,11 +14,11 @@ const _zero_11 0
 add _left_9 a _zero_11
 const _zero_12 0
 add _right_10 i _zero_12
-add _cunt_6 _left_9 _right_10
-add a _cunt_6 _zero_8
+add _case_6 _left_9 _right_10
+add a _case_6 _zero_8
 const _zero_13 0
-input _cunt_6
-add i _cunt_6 _zero_13
+input _case_6
+add i _case_6 _zero_13
 beq _zero_3 _zero_3 _start_4
 :_end_5
 const _zero_14 0

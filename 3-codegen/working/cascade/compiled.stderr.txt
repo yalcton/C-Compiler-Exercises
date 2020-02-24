@@ -20,8 +20,8 @@ Src: const _zero_19 0
 Src: add _res_0 x _zero_19
 Src: beq _res_0 _zero_15 _end_17
 Src: const _zero_20 0
-Src: const _cunt_18 1
-Src: add x _cunt_18 _zero_20
+Src: const _case_18 1
+Src: add x _case_18 _zero_20
 Src: beq _zero_15 _zero_15 _start_16
 Src: :_end_17
 Src: const _zero_21 0

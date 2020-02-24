@@ -2,7 +2,7 @@ const _zero_1 0
 :_start_2
 const _res_0 0
 beq _res_0 _zero_1 _end_3
-const _cunt_4 1
+const _case_4 1
 beq _zero_1 _zero_1 _start_2
 :_end_3
 const _res_0 17

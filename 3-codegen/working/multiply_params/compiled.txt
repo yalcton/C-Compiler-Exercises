@@ -17,14 +17,14 @@ const _zero_12 0
 add _left_10 acc _zero_12
 const _zero_13 0
 add _right_11 a _zero_13
-add _cunt_7 _left_10 _right_11
-add acc _cunt_7 _zero_9
+add _case_7 _left_10 _right_11
+add acc _case_7 _zero_9
 const _zero_14 0
 const _zero_17 0
 add _left_15 b _zero_17
 const _right_16 -1
-add _cunt_7 _left_15 _right_16
-add b _cunt_7 _zero_14
+add _case_7 _left_15 _right_16
+add b _case_7 _zero_14
 beq _zero_4 _zero_4 _start_5
 :_end_6
 const _zero_18 0
