@@ -50,13 +50,13 @@ void CompileRec(
     }
     else if(program->type=="Add")
     { //Evaluate A then B; return A + B.
-      std::string left = makeName("left");
-      std::string right = makeName("right");
-      // Compile the left
-      CompileRec(left, program->branches.at(0));
-      // Compile the right
-      CompileRec(right, program->branches.at(1));
-      std::cout << "add " << destReg << " " << left << " " << right << std::endl;
+      std::string A = makeName("A");
+      std::string B = makeName("B");
+      // Compile the A
+      CompileRec(A, program->branches.at(0));
+      // Compile the B
+      CompileRec(B, program->branches.at(1));
+      std::cout << "add " << destReg << " " << A << " " << B << std::endl;
     }
     else if(program->type=="Output")
     {  //Evaluate X, then send the result to output. The return value is the value of X.
@@ -72,26 +72,26 @@ void CompileRec(
 
     else if(program->type=="LessThan")
     {  //Evaluate A then B; return non-zero if A < B.
-      std::string left = makeName("left");
-      std::string right = makeName("right");
-      // Compile the left
-      CompileRec(left, program->branches.at(0));
-      // Compile the right
-      CompileRec(right, program->branches.at(1));
+      std::string A = makeName("A");
+      std::string B = makeName("B");
+      // Compile the A
+      CompileRec(A, program->branches.at(0));
+      // Compile the B
+      CompileRec(B, program->branches.at(1));
 
-      std::cout << "lt " << destReg << " " << left << " " << right << std::endl;
+      std::cout << "lt " << destReg << " " << A << " " << B << std::endl;
     }
 
     else if(program->type=="Sub")
     { //Evaluate A then B; return A - B.
-      std::string left = makeName("left");
-      std::string right = makeName("right");
-      // Compile the left
-      CompileRec(left, program->branches.at(0));
-      // Compile the right
-      CompileRec(right, program->branches.at(1));
+      std::string A = makeName("A");
+      std::string B = makeName("B");
+      // Compile the A
+      CompileRec(A, program->branches.at(0));
+      // Compile the B
+      CompileRec(B, program->branches.at(1));
 
-      std::cout << "sub " << destReg << " " << left << " " << right << std::endl;
+      std::cout << "sub " << destReg << " " << A << " " << B << std::endl;
     }
 
     else if(program->type=="If")
@@ -100,16 +100,16 @@ void CompileRec(
       std::cout << "const " << zero << " 0" << std::endl;
 
       std::string c = makeName("condition");
-      std::string stat2 = makeName("stat2");
+      std::string val2 = makeName("val2");
       std::string end = makeName("end");
       // Compile the condition into destination register
       CompileRec(c, program->branches.at(0));
       // If the condition is equal to 0, skip to the else statement
-      std::cout << "beq " << c << " " << zero << " " << stat2 << std::endl;
+      std::cout << "beq " << c << " " << zero << " " << val2 << std::endl;
       CompileRec(destReg, program->branches.at(1));
       // Goto the end after the if statement
       std::cout << "beq " << zero << " " << zero << " " << end << std::endl;
-      std::cout << ":" << stat2 << std::endl;
+      std::cout << ":" << val2 << std::endl;
       CompileRec(destReg, program->branches.at(2));
 
       std::cout << ":" << end << std::endl;
@@ -120,7 +120,7 @@ void CompileRec(
       std::cout << "const " << zero << " 0" << std::endl;
       std::string start = makeName("start");
       std::string end = makeName("end");
-      std::string c = makeName("case");
+      std::string case1 = makeName("case");
       // Get register value for the condition
       // Set a label at the beginning of the
       //  loop
@@ -133,7 +133,7 @@ void CompileRec(
       // if it is, go to the end
       std::cout << "beq " << destReg << " " << zero << " " << end << std::endl;
       // else do the rest of the code
-      CompileRec(c, program->branches.at(1));
+      CompileRec(case1, program->branches.at(1));
       // jump to the top again
       std::cout << "beq " << zero << " " << zero << " " << start << std::endl;
       // the end label

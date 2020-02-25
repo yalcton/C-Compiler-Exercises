@@ -8,15 +8,15 @@ add _res_0 i _zero_6
 beq _res_0 _zero_2 _end_4
 const _zero_7 0
 const _zero_13 0
-add _left_11 i _zero_13
-const _right_12 16
-lt _condition_8 _left_11 _right_12
-beq _condition_8 _zero_7 _stat2_9
+add _A_11 i _zero_13
+const _B_12 16
+lt _condition_8 _A_11 _B_12
+beq _condition_8 _zero_7 _val2_9
 const _zero_14 0
 add _case_5 i _zero_14
 output _case_5
 beq _zero_7 _zero_7 _end_10
-:_stat2_9
+:_val2_9
 const _case_5 10
 :_end_10
 const _zero_15 0

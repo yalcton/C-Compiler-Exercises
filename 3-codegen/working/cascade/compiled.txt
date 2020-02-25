@@ -6,14 +6,14 @@ const _res_0 1
 add y _res_0 _zero_2
 const _zero_3 0
 const _zero_9 0
-add _left_7 x _zero_9
-const _right_8 1
-add _condition_4 _left_7 _right_8
-beq _condition_4 _zero_3 _stat2_5
+add _A_7 x _zero_9
+const _B_8 1
+add _condition_4 _A_7 _B_8
+beq _condition_4 _zero_3 _val2_5
 const _zero_10 0
 const _zero_14 0
 add _condition_11 y _zero_14
-beq _condition_11 _zero_10 _stat2_12
+beq _condition_11 _zero_10 _val2_12
 const _zero_15 0
 :_start_16
 const _zero_19 0
@@ -28,11 +28,11 @@ const _zero_21 0
 const _res_0 2
 add x _res_0 _zero_21
 beq _zero_10 _zero_10 _end_13
-:_stat2_12
+:_val2_12
 const _res_0 4
 :_end_13
 beq _zero_3 _zero_3 _end_6
-:_stat2_5
+:_val2_5
 const _zero_22 0
 const _res_0 3
 add x _res_0 _zero_22

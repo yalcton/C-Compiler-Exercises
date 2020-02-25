@@ -9,17 +9,17 @@ const _res_0 10
 add z _res_0 _zero_3
 const _zero_4 0
 const _zero_7 0
-add _left_5 x _zero_7
+add _A_5 x _zero_7
 const _zero_8 0
-add _right_6 y _zero_8
-add _res_0 _left_5 _right_6
+add _B_6 y _zero_8
+add _res_0 _A_5 _B_6
 add x _res_0 _zero_4
 const _zero_9 0
 const _zero_12 0
-add _left_10 x _zero_12
+add _A_10 x _zero_12
 const _zero_13 0
-add _right_11 z _zero_13
-add _res_0 _left_10 _right_11
+add _B_11 z _zero_13
+add _res_0 _A_10 _B_11
 add z _res_0 _zero_9
 const _zero_14 0
 add _res_0 z _zero_14

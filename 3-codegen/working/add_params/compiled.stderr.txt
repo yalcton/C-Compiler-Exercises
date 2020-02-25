@@ -5,10 +5,10 @@ Src: const _zero_2 0
 Src: param _res_0 1
 Src: add b _res_0 _zero_2
 Src: const _zero_5 0
-Src: add _left_3 a _zero_5
+Src: add _A_3 a _zero_5
 Src: const _zero_6 0
-Src: add _right_4 b _zero_6
-Src: add _res_0 _left_3 _right_4
+Src: add _B_4 b _zero_6
+Src: add _res_0 _A_3 _B_4
 Src: halt _res_0
 Exec 0:const _zero_1 0, {}
 Exec 1:param _res_0 0, { _zero_1:0}
@@ -21,15 +21,15 @@ Exec 5:add b _res_0 _zero_2, { _res_0:7 _zero_1:0 _zero_2:0 a:10}
 getReg(_res_0)
 getReg(_zero_2)
 Exec 6:const _zero_5 0, { _res_0:7 _zero_1:0 _zero_2:0 a:10 b:7}
-Exec 7:add _left_3 a _zero_5, { _res_0:7 _zero_1:0 _zero_2:0 _zero_5:0 a:10 b:7}
+Exec 7:add _A_3 a _zero_5, { _res_0:7 _zero_1:0 _zero_2:0 _zero_5:0 a:10 b:7}
 getReg(a)
 getReg(_zero_5)
-Exec 8:const _zero_6 0, { _left_3:10 _res_0:7 _zero_1:0 _zero_2:0 _zero_5:0 a:10 b:7}
-Exec 9:add _right_4 b _zero_6, { _left_3:10 _res_0:7 _zero_1:0 _zero_2:0 _zero_5:0 _zero_6:0 a:10 b:7}
+Exec 8:const _zero_6 0, { _A_3:10 _res_0:7 _zero_1:0 _zero_2:0 _zero_5:0 a:10 b:7}
+Exec 9:add _B_4 b _zero_6, { _A_3:10 _res_0:7 _zero_1:0 _zero_2:0 _zero_5:0 _zero_6:0 a:10 b:7}
 getReg(b)
 getReg(_zero_6)
-Exec 10:add _res_0 _left_3 _right_4, { _left_3:10 _res_0:7 _right_4:7 _zero_1:0 _zero_2:0 _zero_5:0 _zero_6:0 a:10 b:7}
-getReg(_left_3)
-getReg(_right_4)
-Exec 11:, { _left_3:10 _res_0:17 _right_4:7 _zero_1:0 _zero_2:0 _zero_5:0 _zero_6:0 a:10 b:7}
+Exec 10:add _res_0 _A_3 _B_4, { _A_3:10 _B_4:7 _res_0:7 _zero_1:0 _zero_2:0 _zero_5:0 _zero_6:0 a:10 b:7}
+getReg(_A_3)
+getReg(_B_4)
+Exec 11:, { _A_3:10 _B_4:7 _res_0:17 _zero_1:0 _zero_2:0 _zero_5:0 _zero_6:0 a:10 b:7}
 getReg(_res_0)

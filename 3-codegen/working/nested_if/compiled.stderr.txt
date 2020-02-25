@@ -1,29 +1,29 @@
 Src: const _zero_1 0
 Src: const _zero_5 0
 Src: param _condition_6 0
-Src: beq _condition_6 _zero_5 _stat2_7
+Src: beq _condition_6 _zero_5 _val2_7
 Src: param _condition_2 1
 Src: beq _zero_5 _zero_5 _end_8
-Src: :_stat2_7
+Src: :_val2_7
 Src: param _condition_2 2
 Src: :_end_8
-Src: beq _condition_2 _zero_1 _stat2_3
+Src: beq _condition_2 _zero_1 _val2_3
 Src: const _zero_9 0
 Src: param _condition_10 3
-Src: beq _condition_10 _zero_9 _stat2_11
+Src: beq _condition_10 _zero_9 _val2_11
 Src: param _res_0 4
 Src: beq _zero_9 _zero_9 _end_12
-Src: :_stat2_11
+Src: :_val2_11
 Src: param _res_0 5
 Src: :_end_12
 Src: beq _zero_1 _zero_1 _end_4
-Src: :_stat2_3
+Src: :_val2_3
 Src: const _zero_13 0
 Src: param _condition_14 6
-Src: beq _condition_14 _zero_13 _stat2_15
+Src: beq _condition_14 _zero_13 _val2_15
 Src: param _res_0 7
 Src: beq _zero_13 _zero_13 _end_16
-Src: :_stat2_15
+Src: :_val2_15
 Src: param _res_0 8
 Src: :_end_16
 Src: :_end_4
