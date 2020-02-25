@@ -38,59 +38,48 @@ void CompileRec(
 
     }
     else if(program->type=="Assign")
-    { //Evaluate expression V, and assign it to variable N. The return value is the value of V.
+    {
       std::string zero = makeName("zero");
       std::cout << "const " << zero << " 0" << std::endl;
-
-      // Assign the value of the assign branch to destReg
       CompileRec(destReg, program->branches.at(0));
-      // Put the value in destReg into the id name
       std::cout << "add " << program->value << " " << destReg << " " << zero << std::endl;
 
     }
     else if(program->type=="Add")
-    { //Evaluate A then B; return A + B.
+    {
       std::string A = makeName("A");
       std::string B = makeName("B");
-      // Compile the A
       CompileRec(A, program->branches.at(0));
-      // Compile the B
       CompileRec(B, program->branches.at(1));
       std::cout << "add " << destReg << " " << A << " " << B << std::endl;
     }
     else if(program->type=="Output")
-    {  //Evaluate X, then send the result to output. The return value is the value of X.
+    {
       CompileRec(destReg,program->branches.at(0));
       std::cout<<"output " << destReg<<std::endl;
 
     }
     else if(program->type=="Input")
-    {   //Reads an integer from the input stream of numbers and returns it. Note that it is not a variable because it is not lower-case.
+    {
      std::cout<<"input "<<destReg<<std::endl;
 
     }
 
     else if(program->type=="LessThan")
-    {  //Evaluate A then B; return non-zero if A < B.
+    {
       std::string A = makeName("A");
       std::string B = makeName("B");
-      // Compile the A
       CompileRec(A, program->branches.at(0));
-      // Compile the B
       CompileRec(B, program->branches.at(1));
-
       std::cout << "lt " << destReg << " " << A << " " << B << std::endl;
     }
 
     else if(program->type=="Sub")
-    { //Evaluate A then B; return A - B.
+    {
       std::string A = makeName("A");
       std::string B = makeName("B");
-      // Compile the A
       CompileRec(A, program->branches.at(0));
-      // Compile the B
       CompileRec(B, program->branches.at(1));
-
       std::cout << "sub " << destReg << " " << A << " " << B << std::endl;
     }
 
@@ -98,20 +87,15 @@ void CompileRec(
     {
       std::string zero = makeName("zero");
       std::cout << "const " << zero << " 0" << std::endl;
-
-      std::string c = makeName("condition");
+      std::string condition1 = makeName("condition");
       std::string val2 = makeName("val2");
       std::string end = makeName("end");
-      // Compile the condition into destination register
-      CompileRec(c, program->branches.at(0));
-      // If the condition is equal to 0, skip to the else statement
-      std::cout << "beq " << c << " " << zero << " " << val2 << std::endl;
+      CompileRec(condition1, program->branches.at(0));
+      std::cout << "beq " << condition1 << " " << zero << " " << val2 << std::endl;
       CompileRec(destReg, program->branches.at(1));
-      // Goto the end after the if statement
       std::cout << "beq " << zero << " " << zero << " " << end << std::endl;
       std::cout << ":" << val2 << std::endl;
       CompileRec(destReg, program->branches.at(2));
-
       std::cout << ":" << end << std::endl;
     }
     else if(program->type=="While")
@@ -121,22 +105,11 @@ void CompileRec(
       std::string start = makeName("start");
       std::string end = makeName("end");
       std::string case1 = makeName("case");
-      // Get register value for the condition
-      // Set a label at the beginning of the
-      //  loop
       std::cout << ":" << start << std::endl;
-      // Compile the condition into destination register c
       CompileRec(destReg, program->branches.at(0));
-
-      // At the beginning of the loop, check whether the
-      // value in the condition register is equal to zero
-      // if it is, go to the end
       std::cout << "beq " << destReg << " " << zero << " " << end << std::endl;
-      // else do the rest of the code
       CompileRec(case1, program->branches.at(1));
-      // jump to the top again
       std::cout << "beq " << zero << " " << zero << " " << start << std::endl;
-      // the end label
       std::cout << ":" << end << std::endl;
     }else
     {
